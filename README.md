@@ -32,3 +32,22 @@ THIS PROJECT IS SPLIT IN 4 DIFFERENT MODULES :
 -> sDOC : The Splitix documentation, written in Markdown, it is used to help users learn Splitix and its features.
 
 It is meant to be flexible and modular, using this, you may create your own programming language
+
+----////////----
+----UPDATING----
+----////////----
+
+This project is currently in development, and is not yet ready for production use.
+
+To update th project, you can use the following commands :
+
+```bash
+git status //Checks the status of the repository
+git add . //Adds all changes to the staging area
+OR
+git add -u //Takes account of modified and deleted files, but not new files
+
+git commit -m "Your commit message here" //Commits the changes with a message
+
+git push //Pushes the changes to the remote repository
+```
