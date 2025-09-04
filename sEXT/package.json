@@ -1,0 +1,25 @@
+{
+  "name": "sEXT",
+  "displayName": "Splitix",
+  "description": "Offers Splitix language support for Visual Studio and Visual Studio code",
+  "version": "0.0.1",
+  "engines": {
+    "vscode": "^1.103.0"
+  },
+  "categories": [
+    "Programming Languages"
+  ],
+  "contributes": {
+    "languages": [{
+      "id": "splittix",
+      "aliases": ["Splitix", "splittix"],
+      "extensions": [".splt",".splib"],
+      "configuration": "./language-configuration.json"
+    }],
+    "grammars": [{
+      "language": "splittix",
+      "scopeName": "source.splt",
+      "path": "./syntaxes/splittix.tmLanguage.json"
+    }]
+  }
+}
