@@ -24,12 +24,8 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 Splitix is a programming language aimed towards begginers, it is a high-level language that is easy to learn and use.
 
-THIS PROJECT IS SPLIT IN 4 DIFFERENT MODULES :
-
--> sIDE : The IDE used to write Splitix code, hosts a text editor, a block editor, file explorer and such.
--> sLANG : The core of Splitix, contains the compiler, interpreter and all the tools needed to run Splitix code.
--> sBLK : Written in JavaScript, it is a block editor (Powered by Google Blockly).
--> sDOC : The Splitix documentation, written in Markdown, it is used to help users learn Splitix and its features.
+THIS PROJECT IS SPLIT IN 5 DIFFERENT MODULES, sIDE, sLANG, sBLK, sDOC and sEXT, they will all be provided with
+their own documentation
 
 It is meant to be flexible and modular, using this, you may create your own programming language
 
@@ -39,7 +35,7 @@ It is meant to be flexible and modular, using this, you may create your own prog
 
 This project is currently in development, and is not yet ready for production use.
 
-To update th project, you can use the following commands :
+To update this project, you can use the following commands :
 
 ```bash
 git status //Checks the status of the repository
