@@ -32,3 +32,4 @@ legacy/__pycache__/
 # Visual Studio
 .vs/
 *.vsidx
+*.odt#
