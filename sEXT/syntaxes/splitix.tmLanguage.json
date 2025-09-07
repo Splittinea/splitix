@@ -9,12 +9,20 @@
     "keywords": {
 		"patterns": [
 			{
+			"name": "keyword.initialization.splitix",
+			"match": "\\b(using|import|from|as|lang)\\b"
+			},
+			{
 			"name": "keyword.scriptControl.splitix",
 			"match": "\\b(on|halt|pause)\\b"
 			},
 			{
+			"name": "keyword.io.splitix",
+			"match": "\\b(print|input)\\b"
+			},
+			{
 			"name": "keyword.control.splitix",
-			"match": "\\b(if|while|for|return)\\b"
+			"match": "\\b(repeat|if|else|elif|while|until|for|foreach|forall|do)\\b"
 			}
 		]
 	},

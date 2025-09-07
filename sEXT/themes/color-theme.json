@@ -20,7 +20,21 @@
       "name": "Splitix Keywords",
       "scope": "keyword.control.splitix",
       "settings": {
-        "foreground": "#c586c0"
+        "foreground": "#946d40"
+      }
+    },
+    {
+      "name": "Splitix I/O",
+      "scope": "keyword.io.splitix",
+      "settings": {
+        "foreground": "#9d5fa9"
+      }
+    },
+    {
+      "name": "Splitix Initialization",
+      "scope": "keyword.initialization.splitix",
+      "settings": {
+        "foreground": "#a070ca"
       }
     },
     {
