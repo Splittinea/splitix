@@ -4,16 +4,17 @@
 import os
 from PySide6.QtWidgets import QApplication
 
+#Dev tools
+from modules.DevTools import DebugTools
+
 #Home view
 from windows.homeScreen import HomeScreen
-
-
 
 # Ensures smooth zooming of images
 os.environ["QT_ENABLE_HIGHDPI_SCALING"] = "0"
 
 def main() :
-	print("Starting IDE")
+	DebugTools.log("info", "Starting IDE")
 
 	app = QApplication([])
 

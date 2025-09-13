@@ -10,7 +10,7 @@
 		"patterns": [
 			{
 			"name": "keyword.initialization.splitix",
-			"match": "\\b(using|import|from|as|lang)\\b"
+			"match": "\\b(using|from|as|lang)\\b"
 			},
 			{
 			"name": "keyword.scriptControl.splitix",
@@ -22,8 +22,12 @@
 			},
 			{
 			"name": "keyword.control.splitix",
-			"match": "\\b(repeat|if|else|elif|while|until|for|foreach|forall|do)\\b"
-			}
+			"match": "\\b(repeat|if|else|elif|while|until|for|foreach|switch|do|wait|then|case|default)\\b"
+			},
+      {
+        "name": "keyword.variables.splitix",
+        "match": "\\b(var|const)\\b"
+      }
 		]
 	},
     "strings": {

@@ -38,6 +38,13 @@
       }
     },
     {
+      "name": "Splitix Variables",
+      "scope": "keyword.variables.splitix",
+      "settings": {
+        "foreground": "#d55836"
+      }
+    },
+    {
       "name": "Splitix Functions",
       "scope": "support.function.splitix",
       "settings": {
