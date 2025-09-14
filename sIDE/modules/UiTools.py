@@ -12,12 +12,12 @@ from PySide6.QtCore import *
 '''
 GLOBAL CLASS : Every component will herit from this class
 '''
-
 class UIComponent :
     '''
     Base class for all UI components
     Contains common methods and properties for all components
     '''
+
     def __init__(self, widget) :
         self.widget = widget
 
@@ -33,6 +33,12 @@ class UIComponent :
     def setStyle(self, style: str) : # Sets the style of the component using a CSS stylesheet
         self.widget.setStyleSheet(style)
 
+    def setFixedSize(self, width: int, height: int) : # Sets the fixed size of the component
+        self.widget.setFixedSize(width, height)
+
+    '''
+    SCROLL BARS, SLIDERS
+    '''
     def setMaxValue(self, value: float) : # Sets the maximum value of the component (if applicable)
         if hasattr(self.widget, 'setMaximum'):
             self.widget.setMaximum(value)
@@ -45,6 +51,52 @@ class UIComponent :
         if hasattr(self.widget, 'setValue'):
             self.widget.setValue(value)
 
+    '''
+    TABLES, LISTS
+    '''
+    def addItem(self, item: str, rowIndex : int = None, colIndex: int = None, index : int = None) : # Adds an item to the component, at a specific position (if applicable)
+        # QTableWidget
+        if hasattr(self.widget, 'setItem') and rowIndex is not None and colIndex is not None:
+            self.widget.setItem(rowIndex, colIndex, QTableWidgetItem(item))
+    
+        # QListWidget
+        elif hasattr(self.widget, 'addItem') and isinstance(self.widget, QListWidget):
+            if index is not None:
+                self.widget.insertItem(index, item)
+            else:
+                self.widget.addItem(item)
+    
+        # QComboBox
+        elif hasattr(self.widget, 'addItem') and isinstance(self.widget, QComboBox):
+            if index is not None:
+                self.widget.insertItem(index, item)
+            else:
+                self.widget.addItem(item)
+
+
+    def removeItem(self, rowIndex: int = None, colIndex: int = None, index: int = None) : # Removes an item from the component (if applicable)
+        # QTableWidget
+        if hasattr(self.widget, 'removeRow') and rowIndex is not None:
+            self.widget.removeRow(rowIndex)
+    
+        # QListWidget
+        elif isinstance(self.widget, QListWidget):
+            if index is not None:
+                item = self.widget.takeItem(index)
+                del item  # optional, to remove reference
+            else:
+                raise ValueError("index must be specified for QListWidget")
+    
+        # QComboBox
+        elif isinstance(self.widget, QComboBox):
+            if index is not None:
+                self.widget.removeItem(index)
+            else:
+                raise ValueError("index must be specified for QComboBox")
+
+    '''
+    COMPONENT CONTROLS
+    '''
     def show(self) : # Shows the component
         self.widget.show()
 
@@ -78,11 +130,9 @@ class UIComponent :
 
     # Events
     def onLeftClick(self, callback) : # Event triggered when the component is left-clicked (if applicable)
-        if hasattr(self.widget, 'clicked'):
-            self.widget.clicked.connect(callback)
+        self.widget.mousePressEvent = lambda event: callback() if event.button() == Qt.LeftButton else None
 
     def onRightClick(self, callback) : # Event triggered when the component is right-clicked (if applicable)
-        # Right click is not natively supported, so we override the mousePressEvent
         self.widget.mousePressEvent = lambda event: callback() if event.button() == Qt.RightButton else None
 
     def onMiddleClick(self, callback) : # Event triggered when the component is middle-clicked (if applicable)
@@ -112,7 +162,57 @@ class UIComponent :
     def getValue(self) -> str : # Outputs the value of the component (if applicable)
         if hasattr(self.widget, 'value'):
             return self.widget.value()
-        return None
+        return 0
+
+
+'''
+WINDOW PARAMETERS :
+Regrouping all window related ui components
+'''
+# Unfold the arrow to show the classes
+# region
+class Window(UIComponent) :
+    '''
+    A window component, used to create a new window
+    Can be interacted, moved, resized, minimized, maximized and closed
+    Its title can be read and modified programmatically
+    It holds other UI components
+    '''
+    def __init__(self) :
+        super().__init__(QMainWindow())
+
+    def setTitle(self, title: str) : # Sets the title of the window
+        self.widget.setWindowTitle(title)
+
+    def setIcon(self, icon_path: str) : # Sets the icon of the window
+        self.widget.setWindowIcon(QIcon(icon_path))
+
+
+class Layout(UIComponent) :
+    '''
+    A layout component, used to arrange other UI components in a specific way
+    Can be vertical, horizontal, grid, or form layout
+    Holds other UI components
+    '''
+    def __init__(self, layout_type: str = "vertical", parent = None) :
+        if layout_type == "vertical":
+            super().__init__(QVBoxLayout(parent))
+        elif layout_type == "horizontal":
+            super().__init__(QHBoxLayout(parent))
+        elif layout_type == "grid":
+            super().__init__(QGridLayout(parent))
+        elif layout_type == "form":
+            super().__init__(QFormLayout(parent))
+        else:
+            raise ValueError("Invalid layout type. Choose from 'vertical', 'horizontal', 'grid', or 'form'.")
+
+    def addWidget(self, widget: UIComponent) : # Adds a widget to the layout
+        self.widget.addWidget(widget.widget)
+
+    def addLayout(self, layout: 'Layout') : # Adds a layout to the layout
+        self.widget.addLayout(layout.widget)
+# endregion
+
 
 '''
 TEXT ELEMENTS :
@@ -146,6 +246,7 @@ class TextBox(UIComponent) :
 
 # endregion
 
+
 '''
 SELECTORS :
 Regrouping all selector-related UI components, such as checkboxes, radio buttons and dropdowns
@@ -175,3 +276,20 @@ class RadioButton(UIComponent) :
         super().__init__(QRadioButton(text, parent))
 
 # endregion
+
+'''
+CONTAINERS :
+Regrouping all container-related UI components, such as group boxes and tabs
+'''
+# Unfold the arrow to show the classes
+# region
+
+class Table(UIComponent) :
+    '''
+    Table :
+    A component made of rows and columns to display data in a structured way
+    '''
+
+    def __init__(self, rows: int = 0, columns: int = 0, parent = None) :
+        super().__init__(QTableWidget(rows, columns, parent))
+
