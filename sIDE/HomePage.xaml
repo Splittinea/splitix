@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:sIDE"
         mc:Ignorable="d"
         Title="HomePage" Width="1920" Height="1080"
-        Icon="/src/images/logo.ico">
+        Icon="logo.ico">
     
     <Grid x:Name="mainPanel" Background="#FF484848">
         
