@@ -309,7 +309,6 @@ class List(UIComponent) :
 # endregion
 # endregion ComponentClasses
 
-
 '''
 DOCUMENT GENERATOR CLASS
 '''
@@ -455,3 +454,40 @@ class Generator:
             f.write(self.css_content)
         with open(os.path.join(base_path, "script.js"), "w", encoding="utf-8") as f:
             f.write(self.js_content)
+
+
+class Application:
+    """
+    Splitix Application
+    Entry point of the framework. 
+    Holds the root layout and generates the HTML/CSS/JS package.
+    """
+
+    def __init__(self, name: str = "App", output_dir: str = "sIDE/windows/pages"):
+        self.name = name
+        self.output_dir = output_dir
+        self.root_layout = None
+        self.generator = None
+
+    def set_layout(self, layout):
+        """Define the root layout of the application"""
+        self.root_layout = layout
+
+    def build(self):
+        """Generate HTML, CSS, and JS from the root layout"""
+        if not self.root_layout:
+            raise ValueError("No root layout defined. Use set_layout() first.")
+        
+        from UiTools import Generator
+        self.generator = Generator([self.root_layout], output_dir=self.output_dir)
+        self.generator.generate_package(self.name)
+
+    def preview(self):
+        """Open the generated HTML in the default web browser"""
+        import webbrowser, os
+        html_file = os.path.join(self.output_dir, self.name, f"{self.name}.html")
+        if os.path.exists(html_file):
+            webbrowser.open(f"file://{os.path.abspath(html_file)}")
+        else:
+            print("[ERROR] Build first with .build() before preview().")
+
