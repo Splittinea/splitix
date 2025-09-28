@@ -1,0 +1,6 @@
+﻿var x = 42
+print(x)
+var y = 3,14
+print(y)
+var z = "Hello, World!"
+print(z)
