@@ -1,4 +1,6 @@
 ﻿using System.Collections.Specialized;
+using System.Security.Cryptography.X509Certificates;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace sCOMP
 {
@@ -20,25 +22,49 @@ namespace sCOMP
             // AST Root -> Simple list of stmts
             var stmts = new System.Collections.Generic.List<AST.ASTNode>();
 
+            // Flag to indicate compilation completion
+            bool hasCompiled = true;
+
             Console.WriteLine("[INFO] Parsing...");
             var parser = new Parser();
             var commands = parser.Parse(File.ReadAllLines(filePath));
 
             // IL Generation / AST Execution
-            Console.WriteLine("[INFO] Generating IL and executing...");
+            Console.WriteLine("[INFO] Generating IL and executing...\n");
 
             var executor = new ConsoleVisitor();
 
             // Visual Separator
             Console.WriteLine("================== S CODE RESULTS ======================");
 
+            // Executing each instruction
             foreach (var stmt in commands)
             {
-                stmt.Accept(executor);
+                try
+                {
+                    // Executes the commands one by one
+                    stmt.Accept(executor);
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine("\n");
+                    Console.Error.WriteLine($"[ERROR] at {stmt} \n {e} \n");
+                    Console.WriteLine("[INFO] An error has occured, ending compilation now");
+                    hasCompiled = false;
+                    break;
+                }
             }
+            Console.WriteLine("========================================================\n");
+            if (hasCompiled)
+            {
+                Console.WriteLine("[INFO] Compilation finished.\n");
+                Console.WriteLine("[INFO] Displaying generated IL code");
 
-            Console.WriteLine("========================================================");
-            Console.WriteLine("[INFO] Compilation finished.");
+                // Visual Separator
+                Console.WriteLine("================== IL GENERATED CODE ======================");
+                Executor.GenerateIL(commands);
+            }
+            else { Console.Error.WriteLine($"[ERROR] Compiler was aborted"); }
         }
     }
 
@@ -68,20 +94,19 @@ namespace sCOMP
 
         // Variable declaration management
         public void VisitVariableDeclaration(AST.VariableDeclarationNode decl)
-        {
-            var value = EvaluateExpression(decl.InitialValue);
-            // Validation depending of provided domain
-            if (decl.Domain != null)
-            {
-                if (!ValidateDomain(decl.Domain, value))
+        {   
+                var value = EvaluateExpression(decl.InitialValue);
+                // Validation depending of provided domain
+                if (decl.Domain != null)
                 {
-                    Console.Error.WriteLine($"[ERROR] Value '{value}' is not valid for domain {decl.Domain}");
-                    throw new Exception($"Invalid domain for '{value}'");
+                    if (!ValidateDomain(decl.Domain, value))
+                    {
+                        Console.Error.WriteLine($"[ERROR] Value '{value}' is not valid for domain {decl.Domain}");
+                        throw new InvalidDomainException($"Invalid domain for '{value}' (using the domain {decl.Domain})");
+                    }
                 }
-            }
-
-            _variables[decl.Name] = value;
-            Console.WriteLine($"[DEBUG] Declared variable with name '{decl.Name}', initalized to '{value}' using the domain '{decl.Domain ?? "any"}'");
+                _variables[decl.Name] = value;
+                Console.WriteLine($"[DEBUG] Declared variable with name '{decl.Name}', initalized to '{value}' using the domain '{decl.Domain ?? "any"}'");           
         }
 
         private bool ValidateDomain(string domain, object value)
@@ -131,6 +156,5 @@ namespace sCOMP
 
             return null;
         }
-
     }
 }

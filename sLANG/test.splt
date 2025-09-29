@@ -1,5 +1,5 @@
 ﻿var x in R = 18
-var y in Z = 34.5
+var y in Z = -23
 var z in C = 34
 
 print(x)
