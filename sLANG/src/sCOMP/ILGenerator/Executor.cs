@@ -3,12 +3,16 @@ using System.Collections.Generic;
 using System.Reflection;
 using System.Reflection.Emit;
 
-namespace sCOMP
+namespace sCOMP.ILGenerator
 {
     public class Executor
     {
         // IL Lines storage
         private List<string> ilLINES = new List<string>();
+
+        public interface IStatement
+        {
+        }
 
         public void Run(List<IStatement> cmds)
         {

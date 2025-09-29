@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("sLANG")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Release")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+0612b067de0c80fd95f7a66788a5206baf3e2dcf")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+47aa92225230a9c2a8833a844daac289bfbcbfeb")]
 [assembly: System.Reflection.AssemblyProductAttribute("sLANG")]
 [assembly: System.Reflection.AssemblyTitleAttribute("sLANG")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

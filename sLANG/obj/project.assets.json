@@ -2297,23 +2297,26 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Ugo\\.nuget\\packages\\": {},
+    "C:\\Users\\Splittine\\.nuget\\packages\\": {},
+    "C:\\Program Files\\DevExpress 25.1\\Components\\Offline Packages": {},
     "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\Projets\\splitix\\sLANG\\sLANG.csproj",
+      "projectUniqueName": "F:\\splitix\\sLANG\\sLANG.csproj",
       "projectName": "sLANG",
-      "projectPath": "D:\\Projets\\splitix\\sLANG\\sLANG.csproj",
-      "packagesPath": "C:\\Users\\Ugo\\.nuget\\packages\\",
-      "outputPath": "D:\\Projets\\splitix\\sLANG\\obj\\",
+      "projectPath": "F:\\splitix\\sLANG\\sLANG.csproj",
+      "packagesPath": "C:\\Users\\Splittine\\.nuget\\packages\\",
+      "outputPath": "F:\\splitix\\sLANG\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
+        "C:\\Program Files\\DevExpress 25.1\\Components\\Offline Packages",
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
       ],
       "configFilePaths": [
-        "C:\\Users\\Ugo\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\Splittine\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\DevExpress 25.1.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
@@ -2322,6 +2325,7 @@
       ],
       "sources": {
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+        "C:\\Program Files\\DevExpress 25.1\\Components\\System\\Components\\Packages": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
@@ -2371,7 +2375,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.305/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.304/PortableRuntimeIdentifierGraph.json"
       }
     }
   }

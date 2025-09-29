@@ -10,4 +10,5 @@ global using System.Reflection.Emit;
 // ==== COMPILER CLASSES ====
 global using sCOMP;
 global using sCOMP.AST;
+global using sCOMP.ILGenerator;
 // ==========================
