@@ -70,8 +70,43 @@ namespace sCOMP
         public void VisitVariableDeclaration(AST.VariableDeclarationNode decl)
         {
             var value = EvaluateExpression(decl.InitialValue);
+            // Validation depending of provided domain
+            if (decl.Domain != null)
+            {
+                if (!ValidateDomain(decl.Domain, value))
+                {
+                    Console.Error.WriteLine($"[ERROR] Value '{value}' is not valid for domain {decl.Domain}");
+                    throw new Exception($"Invalid domain for '{value}'");
+                }
+            }
+
             _variables[decl.Name] = value;
             Console.WriteLine($"[DEBUG] Declared variable with name '{decl.Name}', initalized to '{value}' using the domain '{decl.Domain ?? "any"}'");
+        }
+
+        private bool ValidateDomain(string domain, object value)
+        {
+            switch (domain)
+            {
+                case "N":
+                    return value is double d1 && d1 >= 0 && d1 % 1 == 0;
+
+                case "Z":
+                    return value is double d2 && d2 % 1 == 0;
+
+                case "Q":
+                    return value is double; // Approx
+
+                case "R":
+                    return value is double;
+
+                case "C":
+                    // For now, only real numbers are supported
+                    return value is double;
+
+                default:
+                    return false;
+            }
         }
 
         // Variable assignment management

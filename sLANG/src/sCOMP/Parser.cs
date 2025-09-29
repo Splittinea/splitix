@@ -1,4 +1,5 @@
 ﻿using System.Security.AccessControl;
+using System.Security.Cryptography.X509Certificates;
 
 namespace sCOMP
 {
@@ -35,45 +36,61 @@ namespace sCOMP
                 else if (line.StartsWith("var "))
                 {
                     // === var statement ===
-                    var contents = line.Substring(4).Split('=');
-                    if (contents.Length == 2)
-                    {
-                        var name = contents[0].Trim();
-                        var value = contents[1].Trim();
+                    string declaration = line.Substring(4).Trim();
+                    string name = "";
+                    string domain = null;
+                    string expressionValue = "";
 
-                        if (double.TryParse(value, NumberStyles.Any, CultureInfo.InvariantCulture, out double num)) { stmts.Add(new VariableDeclarationNode(name, null, new NumberLiteral(num))); } /* Adds a new variable declaration flush to the compiler
-                                                                                                                                                    * With the name and the value
-                                                                                                                                                    * Here, the domain is NOT provided
-                                                                                                                                                    */
-                        else if (value.StartsWith("\"") && value.EndsWith("\""))
-                        {
-                            var text = value.Substring(1, value.Length - 2);
-                            stmts.Add(new VariableDeclarationNode(name, null, new StringLiteral(text)));
-                        }
-                        else { stmts.Add(new VariableDeclarationNode(name, null, new IdentifierNode(value))); }
-                    }
-                }
-                else if (line.Contains("="))
-                {
-                    var parts = line.Split('=');
-                    if (parts.Length == 2)
+                    if (declaration.Contains(" in "))
                     {
-                        var name = parts[0].Trim();
-                        var value = parts[1].Trim();
-
-                        // Adds to the assign flush of the compiler, the value to be given to a variable matching with the given name
-                        if (double.TryParse(value, NumberStyles.Any, CultureInfo.InvariantCulture, out double num)) { stmts.Add(new VariableAssignmentNode(name, new NumberLiteral(num))); }
-                        else if (value.StartsWith("\"") && value.EndsWith("\""))
+                        // Treats the case where a variable is declared with a domain
+                        var parts = declaration.Split(new[] { " in " }, StringSplitOptions.None);
+                        name = parts[0].Trim();
+                        
+                        var dv = parts[1].Split('=');
+                        if (dv.Length == 2)
                         {
-                            var text = value.Substring(1, value.Length - 2);
-                            stmts.Add(new VariableAssignmentNode(name, new StringLiteral(text)));
+                            domain = dv[0].Trim();
+                            expressionValue = dv[1].Trim();
                         }
-                        else { stmts.Add(new VariableAssignmentNode(name, new IdentifierNode(value))); }
+                        else
+                        {
+                            Console.Error.WriteLine($"[ERROR] Invalid Variable Declaration {line}");
+                            continue;
+                        }
                     }
+                    else
+                    {
+                        // Treats the case where a variable is NOT delcared with a domain
+                        var parts = declaration.Split('=');
+                        if (parts.Length == 2)
+                        {
+                            name = parts[0].Trim();
+                            expressionValue = parts[1].Trim();
+                        }
+                        else
+                        {
+                            Console.Error.WriteLine($"[ERROR] Invalid Variable Declaration {line}");
+                            continue;
+                        }
+                    }
+
+                    // Value type detection
+                    if (double.TryParse(expressionValue, NumberStyles.Any, CultureInfo.InvariantCulture, out double num))
+                    {
+                        stmts.Add(new VariableDeclarationNode(name, domain, new NumberLiteral(num)));
+                    }
+                    else if (expressionValue.StartsWith("\"") && expressionValue.EndsWith("\""))
+                    {
+                        var text = expressionValue.Substring(1, expressionValue.Length - 2);
+                        stmts.Add(new VariableDeclarationNode(name, domain, new StringLiteral(text)));
+                    }
+                    else { stmts.Add(new VariableDeclarationNode(name, domain, new IdentifierNode(expressionValue))); }
+
                 }
-                else { Console.Error.WriteLine($"Unrecognized Statement: {line}"); }
+                else { Console.Error.WriteLine($"Unrecognized Statement: {line}"); }                
             }
-
+            
             return stmts;
         }
     }

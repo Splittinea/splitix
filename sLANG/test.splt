@@ -1,6 +1,7 @@
-﻿var x = 42
+﻿var x in R = 18
+var y in Z = 34.5
+var z in C = 34
+
 print(x)
-var y = 3,14
 print(y)
-var z = "Hello, World!"
 print(z)
