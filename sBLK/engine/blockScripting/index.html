@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+
+        <meta charset="UTF-8" />
+        <title>sIDE - Script Editor - Powered by Blockly</title>
+
+        <!-- UNPACKAGES THE BLOCKLY SCRIPT -->
+        <script src="https://unpkg.com/blockly/blockly.min.js"></script>
+
+        <!-- STYLES -->
+        <link rel="stylesheet" href="views/styles/workspace.css">
+
+    </head>
+
+    <body>
+
+        <!-- BLOCKLY'S ZONE -->
+        <div id="blocklyArea"></div>
+        <div id="blocklyDiv"></div>
+
+        <!-- TOOLBOX -->
+        <xml id="toolbox" style="display : none">
+
+            <category name="Flow Control" colour="#E67E22">
+
+                <!-- ADD BLOCKS HERE -->
+
+            </category>
+
+            <category name="Inputs and Outputs" colour="#2980B9">
+
+                <block type="io_print"></block>
+
+            </category>
+
+            <category name="Variables">
+
+                <!-- ADD BLOCKS HERE -->
+
+            </category>
+        </xml>
+        
+        <!-- SOURCE SCRIPTS -->
+        <script src="blocks/init.js"></script>
+        <script src="blocks/io.js"></script>
+        <script src="blocks/flowControl.js"></script>
+        <script src="blocks/variables.js"></script>
+
+        <!-- MAIN SCRIPT -->
+        <script src="main.js"></script>
+
+    </body>
+</html>

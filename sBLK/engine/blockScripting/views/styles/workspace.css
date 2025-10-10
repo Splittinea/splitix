@@ -1,0 +1,108 @@
+/* = Main Page Settings = */
+html, body {
+    height: 100%;
+    margin: 0;
+    font-family: 'Segoe UI', sans-serif;
+    background-color: #1e1e2e;
+    overflow: hidden;
+    color: #e0e0e0;
+}
+
+/* = Blockly Area = */
+#blocklyArea {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+}
+
+/* = Blockly Container = */
+#blocklyDiv {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+/* = Workspace SVG Background = */
+.blocklyMainBackground {
+    fill: #2b2b40 !important;
+    stroke: #44446a;
+    stroke-width: 1.5px;
+}
+
+.blocklyFlyoutBackground {
+    fill: #2b2b40 !important;
+}
+
+
+/* = Toolbox = */
+.blocklyToolbox {
+    background-color: #2b2b44 !important;
+    color: #ffffff;
+    filter: brightness(0.95);
+}
+
+/* = Categories = */
+.blocklyTreeLabel {
+    color: #ffffff !important;
+    font-size: 14px;
+    letter-spacing: 0.5px;
+    font-weight: 500;
+}
+
+.blocklyTreeRow {
+    background: #2d2d44 !important;
+    border-radius: 8px;
+    margin: 2px 4px;
+}
+
+.blocklyTreeRow:hover {
+    background: #3c3c60 !important;
+}
+
+/* = Tooltips = */
+.blocklyTooltipDiv {
+    background-color: #2b2b40 !important;
+    border: 1px solid #5a5a80 !important;
+    color: #e0e0e0 !important;
+    font-size: 13px !important;
+    border-radius: 5px !important;
+    padding: 6px 8px !important;
+}
+
+/* = Text Fields = */
+.blocklyText {
+    fill: #ffffff !important;
+    font-weight: 500;
+}
+
+/* = Inputs and Dropdown Menus = */
+.blocklyHtmlInput {
+    background-color: #292945 !important;
+    border: 1px solid #5a5a80 !important;
+    color: #ffffff !important;
+    border-radius: 5px;
+    padding: 2px 4px;
+}
+
+.blocklyDropdownDiv {
+    background-color: #2b2b40 !important;
+    border: 1px solid #5a5a80 !important;
+    color: #ffffff !important;
+}
+
+/* === Scrollbars ===*/
+::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #3f3f5a;
+    border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #5b5b8a;
+}
